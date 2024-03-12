@@ -1,5 +1,6 @@
-import { loginSchema, registerSchema } from './auth.validation.js';
+import { loginSchema, registerSchema, verifySchema } from './auth.validation.js';
 export {
 	loginSchema,
 	registerSchema,
+	verifySchema
 };

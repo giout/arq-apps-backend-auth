@@ -11,7 +11,6 @@ export const errorHandler = (err, req, res, next) => {
 			message: err.message,
 		});
 	}
-	console.log(err)
 	if (err instanceof mongoose.Error) {
 		return ApiResponse(res, {
 			code: httpStatus.BAD_REQUEST,

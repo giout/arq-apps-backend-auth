@@ -4,7 +4,7 @@ import authRoutes from './auth.route.js';
 const router = Router();
 const defaultRoutes = [
 	{
-		path: '/auth',
+		path: '/',
 		route: authRoutes,
 	},
 ];
