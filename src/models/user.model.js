@@ -18,8 +18,10 @@ const userSchema = new Schema(
             private: true,
         },
         role: {
-            type: Schema.Types.ObjectId,
-            ref: 'Role',
+            type: String,
+            enum: ['user', 'admin'],
+            required: true,
+            trim: true,
         },
         university: {
             type: Schema.Types.ObjectId,
