@@ -33,18 +33,23 @@ const login = catchAsync(async (req, res) => {
 const verify = catchAsync(async (req, res) => {
 	// verify token is valid
 	jwt.verify(req.body.token, SECRET, async (err, payload) => {
-		if (err){
+		if (err) {
 			return ApiResponse(res, {
 				code: httpStatus.UNAUTHORIZED,
 				message: httpMessages.INVALID_AUTH,
 			});
 		}
-		
+
 		const user = await userService.getUserById(payload.id);
-		if (!user){
+		if (!user) {
 			return ApiResponse(res, {
 				code: httpStatus.UNAUTHORIZED,
 				message: httpMessages.INVALID_AUTH,
+			});
+		} else if (user.banned) {
+			return ApiResponse(res, {
+				code: httpStatus.UNAUTHORIZED,
+				message: httpMessages.BAN,
 			});
 		}
 
