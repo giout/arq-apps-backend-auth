@@ -4,10 +4,15 @@ import { userService } from '../services/index.js';
 
 const login = async (username, password) => {
 	const user = await userService.getUserByUsername(username);
+
 	if (!user)
 		throw new ApiError('Username does not exist.', httpStatus.UNAUTHORIZED);
-	if (!user.comparePassword(password))
+	const isMatch = await user.comparePassword(password);
+
+	if (!isMatch)
 		throw new ApiError('Password does not match.', httpStatus.UNAUTHORIZED);
+	if (user.banned)
+		throw new ApiError('User is banned.', httpStatus.UNAUTHORIZED);
 	return user.populate('role university');
 };
 
